@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Chess with Pygame | K Codes</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body class="is-preload">
+
+    <!-- Header -->
+    <div id="header">
+        <div class="top">
+            <!-- Logo -->
+            <div id="logo">
+                <h1 id="title">Kieron Seven Lee</h1>
+                <!-- Role -->
+                <p id="role"></p>
+            </div>
+
+            <!-- Nav -->
+            <nav id="nav">
+                <ul>
+                    <li><a href="../" id="top-link"><span class="icon solid fa-home">Home</span></a></li>
+                    <li><a href="../#about" id="about-link"><span class="icon solid fa-user">About me</span></a></li>
+                    <li><a href="../#projects" id="projects-link"><span class="icon solid fa-code">My projects</span></a></li>
+                    <li><a href="../#blog" id="blog-link"><span class="icon solid fa-rss-square">Blog posts</span></a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="bottom">
+            <!-- Social Icons -->
+            <ul class="icons">
+                <li><a href="https://github.com/Cikguseven" class="icon brands fa-github" target="_blank"><span class="label">Github</span></a></li>
+                <li><a href="https://www.linkedin.com/in/kieron7lee" class="icon brands fa-linkedin" target="_blank"><span class="label">Linkedin</span></a></li>
+                <li><a href="mailto:kieronsevenlee@gmail.com" class="icon solid fa-envelope" target="_blank"><span class="label">Email</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div id="main" class="post">
+
+        <!-- Header -->
+        <section>
+            <div class="row">
+                <div class="col-5 col-12-mobile">
+                    <article class="postimage">
+                        <img src="../images/chess.png" alt="" />
+                    </article>
+                </div>      
+            
+                <div class="col-6 col-12-mobile" id="postheader">
+                    <h2>Chess with Pygame</h2>
+                    <p>Project to create Chess game with graphical user interface using Pygame module. Also created move generation programme that generates legal chess moves to chosen depth in Stockfish format.</p>
+                    <p><a href="https://github.com/Cikguseven/Chess" target="_blank">Link to repo</a></p>
+                    <span class="icon solid fa-calendar-alt"> December 2021</span>
+                    <span class="icon regular fa-clock"> 10 min read</span>
+                </div>
+                
+        </section>
+
+        <!-- Article -->
+        <section id="article" class="two">
+            <div class="container" id="about">
+                <h3>The Queen's Gambit</h3>
+
+                <p>My introduction to the game of Chess was after watching The Queen's Gambit on Netflix in 2021. Previously, I only had knowledge of how the chess pieces moved and that castling was a thing. After watching the show, I was inspired to learn more about the game and give online chess a try during COVID lockdowns. However, after getting destroyed by 1500s on Lichess, I wondered if it was easier to build a chess bot than to improve in the game. Since I had loads of free time, I researched more about the world of chess programming.</p>
+
+                <div class="imgdiv">
+                    <img src="../images/qg.jpg">
+                    <p class="imgdescription">Just imagine visualizing the chess board on the ceiling</p>
+                </div>
+
+                <h3>What is Chess?</h3>
+
+                <p> For those of you who are unfamiliar with Chess, it is a board game played on a chessboard arranged in an 8 by 8 grid. Both players control the same set of chess pieces, one player with the white set and the other with black. They take turns moving one of their pieces and the objective is to deliver checkmate to the opponent's king. As such, it is a game of strategy and tactics which involved no hidden information. In the past few decades, computers that could play chess were invented and have gotten better than humans at the game. Although the best chess engines like Stockfish are available for open source download over the Internet, I wanted to learn the logic and code that goes into making a chess bot from scratch.</p>
+
+                <div class="imgdiv">
+                    <img src="../images/sf.png" width="300vw" height="300vh" >
+                    <p class="imgdescription">Stockfish is not real and can't hurt you</p>
+                </div>
+
+
+                <h3>Pygame</h3>
+
+                <p>The first step to building a chess bot was to recreate a digital chess game with code. This was going to be an offline game where two players take turns making their moves on the same device. At this point, I only knew how to programme in Python. Luckily, I found out about Pygame, a Python library that was designed for creating video games. Pygame enabled me to draw the chess board and pieces on a separate window and allows for user input. This serves as a graphical user interface to play the game (and visualize move generation later on). I was advised by online tutorials to use Object Oriented Programming for this project. This made sense as the chess pieces shared similarities in terms of what they can do, such as their movement and ability to capture another piece. Thus, I had to code the player, chess board and pieces as objects, where the various chess pieces (King, Queen, Rook, Bishop, Knight and Pawn) were children of the Pieces class.</p>
+
+                <h3>Chessboard</h3>
+
+                <p>Creating the chessboard was relatively straightforward. I used a nested list to represent the 8 by 8 grid. The first index of the list can represent a piece's row/rank and the second index can represent the same piece's column/file. The board had to keep track of which pieces were on which square and the colour of each square. Pygame was then used to display the chessboard along with the pieces.</p>
+
+                <h3>Chess pieces</h3>
+
+                <p>For the pieces, I first translated their movements into code naively based on the game rules without accounting for different scenarios. This meant ensuring that the pieces are unable to move outside the board grid and into the void. Next, I implemented capturing mechanics, which required each piece to be either black or white while checking the colour of the piece it intends to capture. Thankfully, the only main rules about this are that the King cannot be captured and Pawns capture diagonally. There's no such nonsense about a Pawn not being able to capture a Rook etc. There are also chess moves that can happen in certain conditions. The first example would be <i>en passant</i>, which required keeping track of the previously moved piece in the game. For promotion, a promoted Pawn would become a Queen automatically to make things simpler. The next example would be castling, which required keeping track if the king and rooks had moved previously. This also included ensuring that a valid castling move did not place the king in check before, during or after the move. Check is a special game state where the king of a player is in immediate attack. This meant disabling a player's move that does not result in his king getting out of check or making a move that results in check.</p>
+
+                <h3>Piece interaction</h3>
+                <p>Each chess piece's movement is directly affected by the other pieces around it. Most pieces are blocked from advancing if there is another friendly piece in its way, except for the Knight. Kings can move one square in any direction unless there is a friendly piece, or moving to that square results in check. In addition, Pawns can only move two squares forward if they had not previously moved and this was done by checking if it was on its starting rank. Being able to correctly generate all possible moves at the beginning of a player's turn was the bulk of the work and code. Ensuring that the logic for generating piece movement is correct was easy thanks to <a href="https://www.chessprogramming.org/Perft_Results" target="_blank">Chess Programming Wiki</a>. Their database had the total possible moves in certain tricky chess position, along with how many of those moves involved captures, checks or en passant. I needed to write a function to take in a <a href="https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation" target="_blank">Forsyth–Edwards Notation</a> (FEN) describing a position as an input. This information is then converted into the corresponding board in the game. I then had to calculate the total possible moves a player could make in these positions and compare it against the database. More details about this stage are covered in the <a href="chess2" target="_blank">Move Generation</a> article. This debugging process took quite a while as there are many nuances in chess logic that had to be correctly translated to code.</p>
+
+                <div class="imgdiv">
+                    <img src="../images/cpw.png" width="350vw" height="400vh" >
+                    <p class="imgdescription">Chess Programming Wiki has some interesting art</p>
+                </div>
+
+                <h3>Game over</h3>
+                <p>Most chess games usually ends when a player is checkmated. This occurs when a player's king is in check and has no moves to get out of check. When the game is over, the subsequent turn of the game is disabled and the players can no longer make any moves. The other way a game typically end is stalemate, where a player has no legal moves but is not in check, which results in a draw. The possibility of stalemate meant that I needed to check what legal moves a player has at the start of every turn. This needs be done regardless as the player can click on each piece during his turn to see all possible moves he can make.</p>
+
+                <div class="imgdiv">
+                    <img src="../images/chess-start.png" width="400vw" height="400vh" >
+                    <p class="imgdescription">Starting position of a chess game</p>
+                </div>
+
+                <h3>Gameplay</h3>
+                <p>In terms of gameplay, the player with the white pieces start first from the board configured to the default starting position. Since both players cannot skip their turn, they take turns making one move each until the game reaches a decisive result. At the start of a player's turn, all possible moves are stored in a dictionary, where the key is an integer representing the position of a piece relative to the grid, and the values are also integers representing possible squares that piece can move to. The integers 0 to 63 is just an alternative way to represent the squares of a chessboard, where the integer's value is equal to 8 x rank + file. The game also checks if a player is in check, can castle either side or if en passant is playable. When the user clicks on a piece, the coordinate of the mouse relative to the game window is then translated into a square on the chessboard. If the selected piece has possible moves, the game window refreshes to show indicators on the square that the chosen piece can move to.</p>
+
+                <div class="img2div">
+                    <img src="../images/pygame.png" width="400vw" height="400vh" >
+                    <p class="imgdescription">Screen grab of game</p>
+                </div>
+
+                <div class="img2div">
+                    <img src="../images/pygame2.png" width="400vw" height="400vh" >
+                    <p class="imgdescription">Bishop on a5 selected and possible moves are shown</p>
+                </div>
+
+                <p>Assuming the user clicks on a valid square that the selected piece can move to, the game then refreshes to show the updated board and allows the other player to then make a move. If the user changes his mind about which piece he wishes to move, the game window then refreshes to show the valid moves of another selected piece. After every turn, the game updates the availability of castling and en passant.</p>
+
+                <h3>Final thoughts</h3>
+
+                <p>The chess game works as intended with the exception of handling certain rare scenarios, such as the 50-move rule and threefold repetition. Future improvements could be made to implement these rules, as well as adding a timer for both players. In addition, the user could be allowed to configure his preferred board and piece theme, along with the animation speed of piece movement and other UI settings. (This would basically be making a clone of Lichess)
+
+                <h3>Conclusion</h3>
+
+                <p>Creating a working chess game concludes the first part of making a chess bot. In all, it took about 500 lines of code and way too much time to programme the chess pieces, board and gameplay. The next part of the project would be working on move generation for multiple moves ahead in order to evaluate them. An overview of this is covered in the <a href="chess2" target="_blank">Move Generation</a> article.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+
+        <!-- Last Updated -->
+        <p id="updated"></p>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/jquery.scrolly.min.js"></script>
+    <script src="../assets/js/jquery.scrollex.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/common.js"></script>
+
+</body>
+</html>
