@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Chess with Pygame | K Codes</title>
+    <title>Chess move generation | K Codes</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="../assets/css/main.css" />
@@ -52,10 +52,10 @@
                 </div>      
             
                 <div class="col-6 col-12-mobile" id="postheader">
-                    <h2>Chess with Pygame</h2>
-                    <p>Project to create Chess game with graphical user interface using Pygame module. Also created move generation programme that generates legal chess moves to chosen depth in Stockfish format.</p>
+                    <h2>Chess move generation</h2>
+                    <p>Project to perform move generation in Chess to chosen depth. Initial task to complete in order to build a chess bot.</p>
                     <p><a href="https://github.com/Cikguseven/Chess" target="_blank">Link to repo</a></p>
-                    <span class="icon solid fa-calendar-alt"> December 2021</span>
+                    <span class="icon solid fa-calendar-alt"> Januuary 2022</span>
                     <span class="icon regular fa-clock"> 10 min read</span>
                 </div>
                 
@@ -64,18 +64,13 @@
         <!-- Article -->
         <section id="article" class="two">
             <div class="container" id="about">
-                <h3>The Queen's Gambit</h3>
+                <h3>Purpose of move generation</h3>
 
-                <p>My introduction to the game of Chess was after watching The Queen's Gambit on Netflix in 2021. Previously, I only had knowledge of how the chess pieces moved and that castling was a thing. After watching the show, I was inspired to learn more about the game and give online chess a try during COVID lockdowns. However, after getting destroyed by 1500s on Lichess, I wondered if it was easier to build a chess bot than to improve in the game. Since I had loads of free time, I researched more about the world of chess programming.</p>
+                <p>Move generation is performed in chess bots and engines to determine what moves are available. These moves are then evaluated by the bot or engine to determine the best move to make. In order for chess bots and engines to make a move quickly, move generation must be done quickly as evaluation requires certain amount of time as well. As such, I was trying out various methods to perform move generation is chess to a certain depth. This meant trying out various algorithms to perform move generation accurately. I also compared the optimised versions of the algorithms based on the time required to generate moves from various positions.</p>
 
-                <div class="imgdiv">
-                    <img src="../images/qg.jpg">
-                    <p class="imgdescription">Just imagine visualizing the chess board on the ceiling</p>
-                </div>
+                <h3>Naive approach</h3>
 
-                <h3>What is Chess?</h3>
-
-                <p> For those of you who are unfamiliar with Chess, it is a board game played on a chessboard arranged in an 8 by 8 grid. Both players control the same set of chess pieces, one player with the white set and the other with black. They take turns moving one of their pieces and the objective is to deliver checkmate to the opponent's king. As such, it is a game of strategy and tactics which involved no hidden information. In the past few decades, computers that could play chess were invented and have gotten better than humans at the game. Although the best chess engines like Stockfish are available for open source download over the Internet, I wanted to learn the logic and code that goes into making a chess bot from scratch.</p>
+                <p>For the first version of the algorithm, I used a simple approach that combined the logic and OOP structure of the <a href="chess" target="_blank">chess game written for Pygame</a>. The game already had a move generation logic, albeit at a depth of one for the current player. There was work to be done to update the logic to generate moves recursively until a certain depth. Thankfully, </p>
 
                 <div class="imgdiv">
                     <img src="../images/sf.png" width="300vw" height="300vh" >
