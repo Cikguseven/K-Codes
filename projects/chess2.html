@@ -55,7 +55,7 @@
                     <h2>Chess move generation</h2>
                     <p>Project to perform move generation in Chess to chosen depth. Initial task to complete in order to build a chess bot.</p>
                     <p><a href="https://github.com/Cikguseven/Chess" target="_blank">Link to repo</a></p>
-                    <span class="icon solid fa-calendar-alt"> Januuary 2022</span>
+                    <span class="icon solid fa-calendar-alt"> January 2022</span>
                     <span class="icon regular fa-clock"> 10 min read</span>
                 </div>
                 
@@ -70,7 +70,7 @@
 
                 <h3>Defining the task</h3>
 
-                Depth in move generation refers to how many moves ahead by both players we are looking at. In the starting position, move generation at a depth of 1 means we consider all possible moves that White can make, which is 20. A depth of 2 means we consider all of White's moves, and all possible responses by Black. We then return the sum of possible responses by Black to each of White's possible moves, which is 400. This continues until we reach the desired depth.
+                <p>Depth in move generation refers to how many moves ahead by both players we are looking at. In the starting position, move generation at a depth of 1 means we consider all possible moves that White can make, which is 20. A depth of 2 means we consider all of White's moves, and all possible responses by Black. We then return the sum of possible responses by Black to each of White's possible moves, which is 400. This continues until we reach the desired depth.</p>
 
                 <h3>Naive approach</h3>
 
@@ -85,7 +85,7 @@
 
                 <h3>Performance</h3>
 
-                <p>As the first version was more of getting it correct than being able to run quickly, it was no surprise that the time taken for move generation was REALLY slow. I benchmarked my algorithm on my PC with Ryzen 5 3600 CPU, 16 GBs of RAM and SSD. Generating moves to a depth of 3 from the initial position took about 4.5 seconds, which was downright unacceptable. I used Pycharm's profiler to look at the main operations of the algorithm, and realised that deepcopying the board array took a significant amount of time. As such, the next version of the algorithm will try to reduce deepcopy operations.</p>
+                <p>As the first version was more of getting it correct than being able to run quickly, it was no surprise that the time taken for move generation was REALLY slow. I benchmarked my algorithm on my PC with Ryzen 5 3600 CPU and 16 GBs of RAM. Generating moves to a depth of 3 from the initial position took about 4.5 seconds, which was downright unacceptable. I used Pycharm's profiler to look at the main operations of the algorithm, and realised that deepcopying the board array took a significant amount of time. As such, the next version of the algorithm will try to reduce deepcopy operations.</p>
 
                 <h3>Version 2</h3>
 
@@ -94,36 +94,43 @@
                 <h3>Version 3</h3>
                 <p>For the next version, I decided to precompute the moves for knight and king pieces for each of the 64 squares. Having a lookup table for these moves meant much fewer calculations were performed during move generation, at the expense of using more space. Instead of using a single string to represent the board, I now used separate strings to store white and black piece positions, as well as king positions. Doing so allowed me to perform operations directly on the strings, instead of having to decode the FEN string repeatedly at every step. These changes brought another tenfold improvement in algorithm runtime for move generation. </p>
 
-                <h3>Comparison</h3>
-                <p>Most chess games usually ends when a player is checkmated. This occurs when a player's king is in check and has no moves to get out of check. When the game is over, the subsequent turn of the game is disabled and the players can no longer make any moves. The other way a game typically end is stalemate, where a player has no legal moves but is not in check, which results in a draw. The possibility of stalemate meant that I needed to check what legal moves a player has at the start of every turn. This needs be done regardless as the player can click on each piece during his turn to see all possible moves he can make.</p>
-
                 <div class="imgdiv">
-                    <img src="../images/chess-start.png" width="400vw" height="400vh" >
-                    <p class="imgdescription">Starting position of a chess game</p>
+                    <img src="../images/testpos.PNG" width="400vw" height="400vh" >
+                    <p class="imgdescription">One of the positions used for benchmarking</p>
                 </div>
 
-                <h3>Gameplay</h3>
-                <p>In terms of gameplay, the player with the white pieces start first from the board configured to the default starting position. Since both players cannot skip their turn, they take turns making one move each until the game reaches a decisive result. At the start of a player's turn, all possible moves are stored in a dictionary, where the key is an integer representing the position of a piece relative to the grid, and the values are also integers representing possible squares that piece can move to. The integers 0 to 63 is just an alternative way to represent the squares of a chessboard, where the integer's value is equal to 8 x rank + file. The game also checks if a player is in check, can castle either side or if en passant is playable. When the user clicks on a piece, the coordinate of the mouse relative to the game window is then translated into a square on the chessboard. If the selected piece has possible moves, the game window refreshes to show indicators on the square that the chosen piece can move to.</p>
+                <h3>Benchmarking</h3>
+                <p>As mentioned earlier, I recorded the time it took for the move generation algorithm to enumerate the number of possible moves at a certain depth. For the position above (FEN: r3k2r/p6p/8/B7/1pp1p3/3b4/P6P/R3K2R w KQkq -), there were 17 initial moves that white can make, with a total of 150,072 total moves at a depth of 4. The results for the various algorithms are shown below. Nodes per second refer to the number of positions that the algorithm can consider in a second, and is used as a main measure of speed for chess engines. For comparison, Stockfish can evaluate around 100 million nodes per second on a high-end consumer CPU.</p>
 
-                <div class="img2div">
-                    <img src="../images/pygame.png" width="400vw" height="400vh" >
-                    <p class="imgdescription">Screen grab of game</p>
-                </div>
+                <table>
+                    <tr>
+                      <th>Version</th>
+                      <th>Time taken (Lower is better)</th>
+                      <th>Kilonodes per second (Higher is better)</th>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>46.1</td>
+                      <td>3.25</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>6.58</td>
+                      <td>22.8</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>0.62</td>
+                        <td>241</td>
+                      </tr>
+                  </table> 
 
-                <div class="img2div">
-                    <img src="../images/pygame2.png" width="400vw" height="400vh" >
-                    <p class="imgdescription">Bishop on a5 selected and possible moves are shown</p>
-                </div>
 
-                <p>Assuming the user clicks on a valid square that the selected piece can move to, the game then refreshes to show the updated board and allows the other player to then make a move. If the user changes his mind about which piece he wishes to move, the game window then refreshes to show the valid moves of another selected piece. After every turn, the game updates the availability of castling and en passant.</p>
 
-                <h3>Final thoughts</h3>
-
-                <p>The chess game works as intended with the exception of handling certain rare scenarios, such as the 50-move rule and threefold repetition. Future improvements could be made to implement these rules, as well as adding a timer for both players. In addition, the user could be allowed to configure his preferred board and piece theme, along with the animation speed of piece movement and other UI settings. (This would basically be making a clone of Lichess)
-
-                <h3>Conclusion</h3>
-
-                <p>Creating a working chess game concludes the first part of making a chess bot. In all, it took about 500 lines of code and way too much time to programme the chess pieces, board and gameplay. The next part of the project would be working on move generation for multiple moves ahead in order to evaluate them. An overview of this is covered in the <a href="chess2" target="_blank">Move Generation</a> article.</p>
+                <h3>Future work</h3>
+                <p>After completing the third version of the algorithm, I came across <a href="https://www.codeproject.com/Articles/5313417/Worlds-Fastest-Bitboard-Chess-Movegenerator">this project</a> and was inspired by their method of using bitboards. To further improve the move generation programme, I would rewrite the logic using bitboards to represent the board and perform more efficient calculations. In addition, the project also used C++, which should run faster than Python.</p>
+                
+                <p>Looking back at this project in 2024, I can now hardly understand the code I written. I had a lot of fun working on the move generation algorithm. I was still learning coding at that time, and it was a pretty neat accomplishment to complete this without referring to the works of others. Although the structure of the code and variable naming was a mess, I now know the practices I should have followed to make it easier to read and maintain.</p>
             </div>
         </section>
     </div>

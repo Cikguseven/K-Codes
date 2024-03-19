@@ -1999,10 +1999,11 @@ input, select, textarea {
 	table {
 		width: 100%;
 		text-align: left;
+		border: 1px solid;
 	}
 
 		table tbody tr:nth-child(2n+2) {
-			background: #f4f4f4;
+			background: #f1ece4;
 		}
 
 		table td {
@@ -2013,7 +2014,7 @@ input, select, textarea {
 			text-align: left;
 			padding: 0.5em 1em 0.5em 1em;
 			color: #fff;
-			background: #222729 url("images/overlay.png");
+			background: #333637 url("images/overlay.png");
 		}
 
 		table thead {
